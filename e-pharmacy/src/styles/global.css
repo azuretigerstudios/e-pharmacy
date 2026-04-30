@@ -1,0 +1,28 @@
+:root {
+  --primary-color: #597159; /* E-Pharmacy temasına uygun yeşil tonu */
+  --secondary-color: #f3f3f3;
+  --text-color: #1d1d1d;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif; /* Veya projenin seçtiği font */
+  background-color: var(--white);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
