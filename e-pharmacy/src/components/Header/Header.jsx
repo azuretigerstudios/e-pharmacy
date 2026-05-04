@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
-import './Header.css'; // Header'a özel stiller için
+import { useCart } from '../../context/CartContext';
+import './Header.css';
 
 const Header = () => {
+  const { cartItems } = useCart();
+  
+  // Toplam ürün adedini hesapla
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <header className="header">
       <div className="logo">
@@ -11,12 +17,14 @@ const Header = () => {
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/medicine">Medicine</Link></li>
-          <li><Link to="/product">Product</Link></li>
+          <li>
+            <Link to="/cart" className="cart-link">
+              Cart ({totalItems})
+            </Link>
+          </li>
         </ul>
       </nav>
-      <div className="auth-buttons">
-        <Link to="/login" className="btn-login">Login</Link>
-      </div>
+      {/* Auth kısımları... */}
     </header>
   );
 };
