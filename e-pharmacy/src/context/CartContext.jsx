@@ -1,15 +1,14 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
-const CartContext = createContext();
+// Context'i dışarı aktarıyoruz ki Hook dosyasından erişebilelim
+export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Başlangıçta localStorage'dan verileri çekiyoruz
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem('e_pharmacy_cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // Sepet her değiştiğinde localStorage'ı güncelliyoruz
   useEffect(() => {
     localStorage.setItem('e_pharmacy_cart', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -40,7 +39,6 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // Sepeti tamamen boşaltmak için (Örn: Sipariş tamamlandığında)
   const clearCart = () => setCartItems([]);
 
   const value = {
@@ -59,16 +57,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-// src/context/CartContext.jsx içindeki exportları bu şekilde yap:
-
-const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
-};
-
-// Hem Provider'ı hem Hook'u bu şekilde export et
-export { CartProvider, useCart };
